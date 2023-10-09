@@ -18,7 +18,7 @@ function AgregarEMP() {
         maxWidth: 600,
       }}
     >
-      <Form.Item label="Normal label" name="username" rules={[Rules]}>
+      <Form.Item label="Alias" name="username" rules={[Rules]}>
         <Input />
       </Form.Item>
 
