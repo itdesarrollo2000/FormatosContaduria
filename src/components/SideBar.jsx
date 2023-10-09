@@ -20,15 +20,19 @@ function SideBar({ drawerWidth = 240 }) {
           },
         }}
       >
-        <Toolbar >
-          <Typography variant="h6" noWrap component="div" >
-          <GithubOutlined />
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            <GithubOutlined />
             EMPRESAS
           </Typography>
         </Toolbar>
         <Divider />
-        <Button variant="contained" color="primary" >
-        <PlusOutlined />
+        <Button
+          variant="contained"
+          color="primary"
+          style={{ top: 10, margin: 10 }}
+          >
+          <PlusOutlined />
           Agregar Empresa
         </Button>
       </Drawer>
