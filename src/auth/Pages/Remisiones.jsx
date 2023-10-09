@@ -51,5 +51,5 @@ const data = [
     tags: ["cool", "teacher"],
   },
 ];
-const App = () => <Table columns={columns} dataSource={data} bordered />;
-export default App;
+const Remisiones = () => <Table columns={columns} dataSource={data} bordered />;
+export default Remisiones;
