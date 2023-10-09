@@ -1,4 +1,5 @@
-import WebPage from "./Pages/WebPage";
+import WebPage from "./auth/Pages/WebPage";
+
 
 function App() {
   return (
