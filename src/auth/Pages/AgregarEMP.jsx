@@ -1,9 +1,21 @@
-import { Button, Form, Input } from "antd";
+import React from "react";
+import { Button, Form, Input, Upload, Space } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
-function AgregarEMP() {
-  const Rules = { require: true };
+function AgregarEMP(props) {
+  const Rules = { required: true };
+
+  const [form] = Form.useForm();
+
+  const onFinish = (values) => {
+    props.onAgregarEmpresa(values);
+
+    form.resetFields();
+  };
+
   return (
-    <Form
+    <Form 
+      form={form}
       name="wrap"
       labelCol={{
         flex: "110px",
@@ -16,24 +28,51 @@ function AgregarEMP() {
       colon={false}
       style={{
         maxWidth: 600,
+        padding: 20,
       }}
+      onFinish={onFinish}
     >
-      <Form.Item label="Alias" name="username" rules={[Rules]}>
+      <Form.Item label="Alias" name="alias" rules={[Rules]}>
+        <Input />
+      </Form.Item>
+
+      <Form.Item label="Descripción" name="description" rules={[Rules]}>
+        <Input />
+      </Form.Item>
+
+      <Form.Item label="RFC" name="rfc" rules={[Rules]}>
+        <Input />
+      </Form.Item>
+
+      <Form.Item label="Domicilio" name="domicilio" rules={[Rules]}>
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="A super long label text"
-        name="password"
+        label="LOGO"
+        name="logo"
+        valuePropName="fileList"
+        getValueFromEvent={(e) => e.fileList}
         rules={[Rules]}
       >
-        <Input />
+        <Upload name="logo" action="/upload.do" listType="picture">
+          <Button icon={<UploadOutlined />}>Subir Logo</Button>
+        </Upload>
       </Form.Item>
 
       <Form.Item label=" ">
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+        <Space>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+          <Button
+            onClick={() => {
+              form.resetFields();
+            }}
+          >
+            Limpiar
+          </Button>
+        </Space>
       </Form.Item>
     </Form>
   );

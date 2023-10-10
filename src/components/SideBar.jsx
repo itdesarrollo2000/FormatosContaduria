@@ -1,18 +1,32 @@
+import React, { useState } from "react";
 import { Box, Divider, Drawer, Toolbar, Typography } from "@mui/material";
-import { Button, Modal } from "antd";
+import { Button, Modal, Radio, Tabs, Empty } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { GithubOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
 import AgregarEMP from "../auth/Pages/AgregarEMP";
 
 function SideBar({ drawerWidth = 240 }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [mode, setMode] = useState("left"); // Cambiado a "left"
+  const [empresas, setEmpresas] = useState([]);
 
   const handleOpenModal = () => {
     setModalVisible(true);
   };
 
   const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleModeChange = (e) => {
+    setMode(e.target.value);
+  };
+
+  const handleAgregarEmpresa = (empresa) => {
+    // Agrega la nueva empresa a la matriz de empresas
+    setEmpresas([...empresas, empresa]);
+
+    // Cierra el modal
     setModalVisible(false);
   };
 
@@ -39,6 +53,7 @@ function SideBar({ drawerWidth = 240 }) {
           </Typography>
         </Toolbar>
         <Divider />
+
         <Button
           variant="contained"
           color="primary"
@@ -50,13 +65,41 @@ function SideBar({ drawerWidth = 240 }) {
         </Button>
         <Modal
           title="Agregar Empresa"
-          visible={modalVisible}
+          open={modalVisible}
           onOk={handleCloseModal}
           onCancel={handleCloseModal}
         >
-          {/* Aquí puedes poner el contenido del modal */}
-          <AgregarEMP />
+          <AgregarEMP onAgregarEmpresa={handleAgregarEmpresa} />
         </Modal>
+        <div>
+          <Radio.Group
+            onChange={handleModeChange}
+            value={mode}
+            style={{
+              marginBottom: 8,
+            }}
+          ></Radio.Group>
+          {empresas.length > 0 ? (
+            <Tabs
+              defaultActiveKey="1"
+              tabPosition={mode}
+              style={{
+                height: 800,
+                padding: 10,
+              }}
+            >
+              {empresas.map((empresa, index) => (
+                <Tabs.TabPane tab={`Empresa-${index + 1}`} key={`${index + 1}`}>
+                  {/* Aquí puedes mostrar la información de la empresa */}
+                  <p> {empresa.alias}</p>
+                  {/* <p>Descripción: {empresa.description}</p> */}
+                </Tabs.TabPane>
+              ))}
+            </Tabs>
+          ) : (
+            <Empty description="Agrega una empresa para que aparezca aquí en la tabla" />
+          )}
+        </div>
       </Drawer>
     </Box>
   );
