@@ -4,6 +4,7 @@ import { Button, Modal, Radio, Tabs, Empty } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { GithubOutlined } from "@ant-design/icons";
 import AgregarEMP from "../auth/Pages/AgregarEMP";
+import { Link } from "react-router-dom";
 
 function SideBar({ drawerWidth = 240 }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -53,6 +54,22 @@ function SideBar({ drawerWidth = 240 }) {
           </Typography>
         </Toolbar>
         <Divider />
+
+        <Link to="/prueba">
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              top: 2,
+              margin: 10,
+              width: 219,
+              height: 100,              
+            }}
+          >
+            <PlusOutlined />
+            PRUEBA
+          </Button>
+        </Link>
 
         <Button
           variant="contained"
